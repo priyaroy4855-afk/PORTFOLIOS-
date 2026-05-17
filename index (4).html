@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Priya Roy CV Maker</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:linear-gradient(135deg,#0f172a,#1e293b);
+      min-height:100vh;
+      color:white;
+      padding:30px;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:25px;
+    }
+
+    .form-box,.cv-box{
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:20px;
+      padding:25px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    h1{
+      text-align:center;
+      margin-bottom:20px;
+      font-size:32px;
+      color:#38bdf8;
+    }
+
+    h2{
+      margin-bottom:15px;
+      color:#38bdf8;
+    }
+
+    label{
+      display:block;
+      margin-top:12px;
+      margin-bottom:6px;
+      font-size:14px;
+    }
+
+    input,textarea{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:10px;
+      background:#f1f5f9;
+      outline:none;
+      font-size:15px;
+    }
+
+    textarea{
+      resize:none;
+      height:80px;
+    }
+
+    .btn-group{
+      display:flex;
+      gap:10px;
+      margin-top:20px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      flex:1;
+      padding:12px;
+      border:none;
+      border-radius:12px;
+      background:#38bdf8;
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+      font-size:15px;
+    }
+
+    button:hover{
+      background:#0ea5e9;
+      transform:scale(1.03);
+    }
+
+    .cv{
+      background:white;
+      color:black;
+      padding:30px;
+      border-radius:15px;
+      min-height:700px;
+    }
+
+    .cv-header{
+      text-align:center;
+      margin-bottom:20px;
+    }
+
+    .cv-header h1{
+      color:#0f172a;
+      margin-bottom:5px;
+    }
+
+    .section{
+      margin-top:20px;
+    }
+
+    .section h3{
+      background:#0f172a;
+      color:white;
+      padding:8px;
+      border-radius:8px;
+      margin-bottom:10px;
+    }
+
+    .download{
+      background:#22c55e;
+    }
+
+    .download:hover{
+      background:#16a34a;
+    }
+
+    .reset{
+      background:#ef4444;
+    }
+
+    .reset:hover{
+      background:#dc2626;
+    }
+
+    @media(max-width:900px){
+      .container{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>PRIYA ROY - CV MAKER WEBSITE</h1>
+
+  <div class="container">
+
+    <!-- FORM -->
+    <div class="form-box">
+      <h2>Fill Your Details</h2>
+
+      <label>Full Name</label>
+      <input type="text" id="name" placeholder="Priya Roy">
+
+      <label>Profession</label>
+      <input type="text" id="profession" placeholder="Website Designer">
+
+      <label>Email</label>
+      <input type="email" id="email" placeholder="example@gmail.com">
+
+      <label>Phone</label>
+      <input type="text" id="phone" placeholder="+91 XXXXX XXXXX">
+
+      <label>Address</label>
+      <textarea id="address"></textarea>
+
+      <label>About Yourself</label>
+      <textarea id="about"></textarea>
+
+      <label>Skills</label>
+      <textarea id="skills" placeholder="HTML, CSS, JavaScript"></textarea>
+
+      <label>Experience</label>
+      <textarea id="experience"></textarea>
+
+      <label>Education</label>
+      <textarea id="education"></textarea>
+
+      <label>Projects</label>
+      <textarea id="projects"></textarea>
+
+      <div class="btn-group">
+        <button onclick="generateCV()">Generate CV</button>
+        <button class="download" onclick="downloadCV()">Download CV</button>
+        <button class="reset" onclick="resetForm()">Reset</button>
+      </div>
+    </div>
+
+    <!-- CV PREVIEW -->
+    <div class="cv-box">
+      <h2>Live CV Preview</h2>
+
+      <div class="cv" id="cv-template">
+
+        <div class="cv-header">
+          <h1 id="cv-name">Priya Roy</h1>
+          <p id="cv-profession">Website Designer</p>
+          <p id="cv-contact">example@gmail.com | +91 XXXXX XXXXX</p>
+        </div>
+
+        <div class="section">
+          <h3>About Me</h3>
+          <p id="cv-about">
+            Creative website designer with modern UI/UX skills.
+          </p>
+        </div>
+
+        <div class="section">
+          <h3>Skills</h3>
+          <p id="cv-skills">HTML, CSS, JavaScript</p>
+        </div>
+
+        <div class="section">
+          <h3>Experience</h3>
+          <p id="cv-experience">2 Years Experience in Website Designing.</p>
+        </div>
+
+        <div class="section">
+          <h3>Education</h3>
+          <p id="cv-education">Bachelor Degree</p>
+        </div>
+
+        <div class="section">
+          <h3>Projects</h3>
+          <p id="cv-projects">Portfolio Website, CV Builder</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function generateCV(){
+
+      document.getElementById("cv-name").innerText =
+      document.getElementById("name").value || "Priya Roy";
+
+      document.getElementById("cv-profession").innerText =
+      document.getElementById("profession").value || "Website Designer";
+
+      document.getElementById("cv-contact").innerText =
+      (document.getElementById("email").value || "example@gmail.com")
+      + " | " +
+      (document.getElementById("phone").value || "+91 XXXXX XXXXX");
+
+      document.getElementById("cv-about").innerText =
+      document.getElementById("about").value || "Creative website designer.";
+
+      document.getElementById("cv-skills").innerText =
+      document.getElementById("skills").value || "HTML, CSS, JavaScript";
+
+      document.getElementById("cv-experience").innerText =
+      document.getElementById("experience").value || "No Experience Added";
+
+      document.getElementById("cv-education").innerText =
+      document.getElementById("education").value || "No Education Added";
+
+      document.getElementById("cv-projects").innerText =
+      document.getElementById("projects").value || "No Projects Added";
+
+      alert("CV Generated Successfully!");
+    }
+
+    function downloadCV(){
+      window.print();
+    }
+
+    function resetForm(){
+
+      document.querySelectorAll("input, textarea").forEach(input=>{
+        input.value = "";
+      });
+
+      generateCV();
+
+      alert("Form Reset Successfully!");
+    }
+  </script>
+
+</body>
+</html>
